@@ -7,31 +7,10 @@ const { DB_URL } = require('./config.js');
 const Post = require('./server/model/Post');
 const User = require('./server/model/Users');
 
-const typeDefs = gql`
-  type Post {
-    id: ID!
-    body: String!
-    createdAt: String!
-    username: String!
-  }
-  type Query {
-    sayHi: String!
-    getPost: [Post]
-  }
-`;
-const resolvers = {
-  Query: {
-    sayHi: () => 'This is what the response will send back to the client!',
-    async getPost() {
-      try {
-        const posts = await Post.find();
-        return posts;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-  },
-};
+// Importing the typeDefs
+const typeDefs = require('./graphql/typeDefs');
+const resolvers = require('./graphql/resolvers');
+
 
 const server = new ApolloServer({
   typeDefs,
