@@ -23,6 +23,7 @@ module.exports = gql`
   type Query {
     sayHi: String!
     getPosts: [Post]
+    getUsers: [User]
   }
   type Mutation {
     register(registerInput: RegisterInput): User!

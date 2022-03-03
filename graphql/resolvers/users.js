@@ -5,6 +5,17 @@ const {SECRET_KEY} = require('../../config');
 
 
 module.exports = {
+    Query: {
+       async getUsers(){
+            try{
+                const users = await User.find();
+                console.log(users);
+                return users;
+            } catch(err) {
+                throw new Error(err);
+            }
+        }
+    },
     Mutation: {
         async register(_,
              {
