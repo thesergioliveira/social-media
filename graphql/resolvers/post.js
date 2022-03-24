@@ -5,7 +5,7 @@ module.exports = {
       async getPosts () {
           try{
             const post = await Post.find();
-            return posts;
+            return post;
           } catch (err) {
               throw new Error(err);
           }

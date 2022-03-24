@@ -2,6 +2,8 @@ const User = require('../../server/model/Users');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRET_KEY} = require('../../config');
+const Users = require('../../server/model/Users');
+const { UserInputError } = require('apollo-server');
 
 
 module.exports = {
@@ -26,9 +28,16 @@ module.exports = {
               ) {
             // Validate user data
             // Make sure the user does not already exist
+            const user = await Users.findOne({ username});
+            if (user){
+                throw new UserInputError('Username is taken',{
+                    error:{
+                        username: 'Sorry, this username is already taken :('
+                    }
+                });
+            } else {
             // Encript the password and auth token
             password = await bcrypt.hash(password, 12);
-            console.log(email);
             const newUser = new User({
                 email, 
                 username,
@@ -43,6 +52,7 @@ module.exports = {
                 email: res.email,
                 username: res.username
             }, SECRET_KEY,{expiresIn: '1h'} );
+
             return{
                 // ...res.doc, ?
                 id: res._id,
@@ -53,5 +63,6 @@ module.exports = {
             }
             
         }
+        }
     }
-    }
+}
