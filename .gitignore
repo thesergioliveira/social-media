@@ -1,2 +1,6 @@
+# Dependencies and necessary packages for the application
 node_modules/
+# Configuration files
 .env
+.vscode/
+config.js
