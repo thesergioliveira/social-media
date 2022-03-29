@@ -5,7 +5,7 @@ const { DB_URL } = require("./config.js");
 
 // DB models
 const Post = require("./model/Post");
-const User = require("./model/Users");
+const User = require("./model/User");
 
 // Importing the typeDefs
 const typeDefs = require("./graphql/typeDefs");
@@ -14,6 +14,7 @@ const resolvers = require("./graphql/resolvers");
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => ({ req }),
 });
 mongoose
   .connect(DB_URL, {

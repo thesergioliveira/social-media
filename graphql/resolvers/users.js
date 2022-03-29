@@ -1,4 +1,4 @@
-const User = require("../../model/Users");
+const User = require("../../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../../config");
@@ -26,7 +26,6 @@ module.exports = {
     async getUsers() {
       try {
         const users = await User.find();
-        console.log(users);
         return users;
       } catch (err) {
         throw new Error(err);
@@ -37,7 +36,7 @@ module.exports = {
     async login(parent, { username, password }) {
       const { valid, errors } = validateLoginInput(username, password);
       if (!valid) throw new UserInputError("error", { errors });
-      const user = await Users.findOne({ username });
+      const user = await User.findOne({ username });
       if (!user) {
         errors.general = "User not found!";
         throw new UserInputError("User not found!", { errors });
@@ -72,7 +71,7 @@ module.exports = {
         throw new UserInputError("errors", { errors });
       }
       // Make sure the user does not already exist
-      const user = await Users.findOne({ username });
+      const user = await User.findOne({ username });
       if (user) {
         throw new UserInputError("Username is taken", {
           error: {
