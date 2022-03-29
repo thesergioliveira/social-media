@@ -1,13 +1,12 @@
-const User = require("../../server/model/Users");
+const User = require("../../model/Users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../../config");
-const Users = require("../../server/model/Users");
 const { UserInputError } = require("apollo-server");
 const {
   validateRegisterInput,
   validateLoginInput,
-} = require("../../server/util/validators");
+} = require("../../util/validators");
 const { LogTimings } = require("concurrently");
 
 const generateToken = (user) => {

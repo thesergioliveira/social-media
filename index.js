@@ -1,16 +1,15 @@
-const { ApolloServer } = require('apollo-server');
-const gql = require('graphql-tag');
-const mongoose = require('mongoose');
-const { DB_URL } = require('./config.js');
+const { ApolloServer } = require("apollo-server");
+const gql = require("graphql-tag");
+const mongoose = require("mongoose");
+const { DB_URL } = require("./config.js");
 
 // DB models
-const Post = require('./server/model/Post');
-const User = require('./server/model/Users');
+const Post = require("./model/Post");
+const User = require("./model/Users");
 
 // Importing the typeDefs
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
-
+const typeDefs = require("./graphql/typeDefs");
+const resolvers = require("./graphql/resolvers");
 
 const server = new ApolloServer({
   typeDefs,
@@ -21,7 +20,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    console.log('Connected to the Database!');
+    console.log("Connected to the Database!");
     return server.listen({ port: 5005 });
   })
   .then((res) => console.log(res.url))
